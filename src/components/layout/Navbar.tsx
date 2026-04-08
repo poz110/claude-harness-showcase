@@ -22,6 +22,7 @@ export function Navbar({ starCount }: NavbarProps) {
 
   // Delay rendering switchers until after hydration to avoid mismatch
   useEffect(() => {
+    // eslint-disable-next-line react-hooks/set-state-in-effect
     setMounted(true)
   }, [])
 

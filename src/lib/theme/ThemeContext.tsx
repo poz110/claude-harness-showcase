@@ -139,6 +139,7 @@ export function ThemeProvider({ children }: { children: ReactNode }) {
     try {
       const stored = localStorage.getItem(STORAGE_KEY) as ThemeColor | null
       if (stored && stored in THEME_VARS) {
+        // eslint-disable-next-line react-hooks/set-state-in-effect
         setThemeState(stored)
         applyTheme(stored)
       }

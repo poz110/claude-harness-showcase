@@ -21,6 +21,7 @@ export function LanguageProvider({ children }: { children: ReactNode }) {
     try {
       const stored = localStorage.getItem(STORAGE_KEY) as Language | null
       if (stored === 'en' || stored === 'zh') {
+        // eslint-disable-next-line react-hooks/set-state-in-effect
         setLanguageState(stored)
       }
     } catch {
