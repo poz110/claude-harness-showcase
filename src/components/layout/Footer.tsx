@@ -1,3 +1,7 @@
+'use client'
+
+import { useLanguage } from '@/lib/i18n/LanguageContext'
+
 // GitHub SVG icon (lucide-react v1 doesn't include Github)
 function GithubIcon({ size = 14 }: { size?: number }) {
   return (
@@ -15,6 +19,7 @@ function GithubIcon({ size = 14 }: { size?: number }) {
 
 export function Footer() {
   const year = 2026
+  const { t } = useLanguage()
 
   return (
     <footer
@@ -51,7 +56,7 @@ export function Footer() {
               className="footer-link flex items-center gap-1.5"
             >
               <GithubIcon size={14} />
-              GitHub
+              {t.footer.github}
             </a>
             <a
               href="https://github.com/poz110/claude-harness/blob/main/LICENSE"
@@ -59,13 +64,13 @@ export function Footer() {
               rel="noopener noreferrer"
               className="footer-link"
             >
-              MIT License
+              {t.footer.license}
             </a>
           </div>
 
           {/* Copyright */}
           <p className="text-xs" style={{ color: 'var(--color-zinc-500)' }}>
-            &copy; {year} claude-harness contributors
+            &copy; {year} {t.footer.copyright}
           </p>
         </div>
       </div>

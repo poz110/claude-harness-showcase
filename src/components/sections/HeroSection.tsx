@@ -1,5 +1,8 @@
+'use client'
+
 import { ArrowRight } from 'lucide-react'
 import { SECTION_IDS } from '@/lib/content/sections'
+import { useLanguage } from '@/lib/i18n/LanguageContext'
 
 // GitHub SVG icon (lucide-react v1 doesn't include Github)
 function GithubIcon({ size = 16 }: { size?: number }) {
@@ -17,6 +20,8 @@ function GithubIcon({ size = 16 }: { size?: number }) {
 }
 
 export function HeroSection() {
+  const { t } = useLanguage()
+
   return (
     <section
       id={SECTION_IDS.hero}
@@ -52,7 +57,7 @@ export function HeroSection() {
             style={{ backgroundColor: 'var(--color-brand-bright)' }}
             aria-hidden="true"
           />
-          Open Source · Claude Code Plugin
+          {t.hero.badge}
         </div>
 
         {/* Main title */}
@@ -65,9 +70,9 @@ export function HeroSection() {
             color: 'var(--color-zinc-50)',
           }}
         >
-          Ship Production-Ready Code
+          {t.hero.titleLine1}
           <br />
-          <span className="gradient-text">with AI Agent Orchestration</span>
+          <span className="gradient-text">{t.hero.titleLine2}</span>
         </h1>
 
         {/* Subtitle */}
@@ -79,8 +84,7 @@ export function HeroSection() {
             color: 'var(--color-zinc-300)',
           }}
         >
-          From PRD to deployed code — in minutes, not weeks.{' '}
-          claude-harness orchestrates multiple Claude Code agents to automate your entire development workflow.
+          {t.hero.subtitle}
         </p>
 
         {/* CTAs */}
@@ -88,11 +92,11 @@ export function HeroSection() {
           {/* Primary CTA: Get Started */}
           <a
             href={`#${SECTION_IDS.gettingStarted}`}
-            aria-label="Get started with claude-harness"
+            aria-label={t.hero.ctaPrimaryLabel}
             className="hero-cta-primary flex items-center gap-2 px-6 py-3 rounded-lg text-sm font-medium text-white w-full sm:w-auto justify-center"
             style={{ background: 'var(--gradient-brand)' }}
           >
-            Get Started
+            {t.hero.ctaPrimary}
             <ArrowRight size={16} />
           </a>
 
@@ -109,7 +113,7 @@ export function HeroSection() {
             }}
           >
             <GithubIcon size={16} />
-            View on GitHub
+            {t.hero.ctaSecondary}
           </a>
         </div>
       </div>
@@ -151,7 +155,7 @@ export function HeroSection() {
           <div
             className="px-5 py-5"
             style={{ fontFamily: 'var(--font-mono)', fontSize: '0.875rem', lineHeight: 1.7 }}
-            aria-label="claude-harness autopilot workflow demonstration"
+            aria-label={t.hero.terminalLabel}
           >
             <div className="terminal-line" style={{ color: 'var(--color-zinc-300)' }}>
               <span style={{ color: 'var(--color-brand-bright)' }}>$</span>{' '}
@@ -179,27 +183,27 @@ export function HeroSection() {
             <div className="terminal-line mt-1" style={{ color: 'var(--color-zinc-400)' }}>
               <span style={{ color: 'var(--color-zinc-500)' }}>&gt;</span>{' '}
               <span style={{ color: 'var(--color-info)' }}>[PM]</span> Writing user stories...
-              <span className="ml-4" style={{ color: 'var(--color-success)' }}>✓</span>
+              <span className="ml-4" style={{ color: 'var(--color-success)' }}>&#10003;</span>
             </div>
             <div className="terminal-line mt-1" style={{ color: 'var(--color-zinc-400)' }}>
               <span style={{ color: 'var(--color-zinc-500)' }}>&gt;</span>{' '}
               <span style={{ color: 'var(--color-info)' }}>[Architect]</span> Generating ADR...
-              <span className="ml-4" style={{ color: 'var(--color-success)' }}>✓</span>
+              <span className="ml-4" style={{ color: 'var(--color-success)' }}>&#10003;</span>
             </div>
             <div className="terminal-line mt-1" style={{ color: 'var(--color-zinc-400)' }}>
               <span style={{ color: 'var(--color-zinc-500)' }}>&gt;</span>{' '}
               <span style={{ color: 'var(--color-info)' }}>[Designer]</span> Building design system...
-              <span className="ml-4" style={{ color: 'var(--color-success)' }}>✓</span>
+              <span className="ml-4" style={{ color: 'var(--color-success)' }}>&#10003;</span>
             </div>
             <div className="terminal-line mt-1" style={{ color: 'var(--color-zinc-400)' }}>
               <span style={{ color: 'var(--color-zinc-500)' }}>&gt;</span>{' '}
               <span style={{ color: 'var(--color-info)' }}>[FE]</span> Implementing components...
-              <span className="ml-3" style={{ color: 'var(--color-warning)' }}>⟳</span>
+              <span className="ml-3" style={{ color: 'var(--color-warning)' }}>&#10227;</span>
             </div>
             <div className="terminal-line mt-1" style={{ color: 'var(--color-zinc-400)' }}>
               <span style={{ color: 'var(--color-zinc-500)' }}>&gt;</span>{' '}
               <span style={{ color: 'var(--color-info)' }}>[BE]</span> Setting up API routes...
-              <span className="ml-4" style={{ color: 'var(--color-warning)' }}>⟳</span>
+              <span className="ml-4" style={{ color: 'var(--color-warning)' }}>&#10227;</span>
             </div>
           </div>
         </div>

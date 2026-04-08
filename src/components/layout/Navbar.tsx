@@ -3,14 +3,27 @@
 import { useState, useEffect, useCallback } from 'react'
 import { Star } from 'lucide-react'
 import { NAV_ITEMS, SECTION_IDS, type SectionId } from '@/lib/content/sections'
+import { useLanguage } from '@/lib/i18n/LanguageContext'
+import { useTheme, THEME_DOT_COLORS, THEME_LABELS, type ThemeColor } from '@/lib/theme/ThemeContext'
 
 interface NavbarProps {
   starCount?: number | null
 }
 
+const THEME_ORDER: ThemeColor[] = ['purple', 'blue', 'green', 'orange']
+
 export function Navbar({ starCount }: NavbarProps) {
   const [scrolled, setScrolled] = useState(false)
   const [activeSection, setActiveSection] = useState<SectionId | null>(null)
+  const [mounted, setMounted] = useState(false)
+
+  const { language, setLanguage, t } = useLanguage()
+  const { theme, setTheme } = useTheme()
+
+  // Delay rendering switchers until after hydration to avoid mismatch
+  useEffect(() => {
+    setMounted(true)
+  }, [])
 
   // Scroll detection for glassmorphism
   useEffect(() => {
@@ -87,6 +100,14 @@ export function Navbar({ starCount }: NavbarProps) {
         : String(starCount)
       : null
 
+  // Build nav labels from translations, matching by sectionId
+  const navLabels: Record<string, string> = {
+    [SECTION_IDS.features]: t.nav.features,
+    [SECTION_IDS.howItWorks]: t.nav.howItWorks,
+    [SECTION_IDS.gettingStarted]: t.nav.getStarted,
+    [SECTION_IDS.faq]: t.nav.faq,
+  }
+
   return (
     <nav
       role="navigation"
@@ -110,7 +131,7 @@ export function Navbar({ starCount }: NavbarProps) {
           onClick={(e) => handleNavClick(e, '#hero')}
           className="flex items-center gap-2 font-semibold text-base transition-opacity hover:opacity-80"
           style={{ color: 'var(--color-zinc-50)', fontFamily: 'var(--font-mono)' }}
-          aria-label="claude-harness home"
+          aria-label={t.nav.homeLabel}
         >
           <span
             className="flex items-center justify-center w-7 h-7 rounded-md text-xs font-bold"
@@ -128,6 +149,7 @@ export function Navbar({ starCount }: NavbarProps) {
         <div className="hidden md:flex items-center gap-1" role="list">
           {NAV_ITEMS.map((item) => {
             const isActive = activeSection === item.sectionId
+            const label = navLabels[item.sectionId] ?? item.label
             return (
               <a
                 key={item.sectionId}
@@ -143,7 +165,7 @@ export function Navbar({ starCount }: NavbarProps) {
                   transition: 'color 150ms ease',
                 }}
               >
-                {item.label}
+                {label}
                 {isActive && (
                   <span
                     className="absolute bottom-0 left-3 right-3 h-0.5 rounded-full"
@@ -155,36 +177,117 @@ export function Navbar({ starCount }: NavbarProps) {
           })}
         </div>
 
-        {/* GitHub button */}
-        <a
-          href="https://github.com/poz110/claude-harness"
-          target="_blank"
-          rel="noopener noreferrer"
-          aria-label="View claude-harness on GitHub"
-          className="flex items-center gap-1.5 px-3 py-1.5 text-sm rounded-lg border transition-all"
-          style={{
-            color: 'var(--color-zinc-100)',
-            borderColor: 'var(--color-zinc-700)',
-            backgroundColor: 'var(--color-zinc-900)',
-            transition: 'border-color 150ms ease, background-color 150ms ease',
-            fontFamily: 'var(--font-mono)',
-          }}
-          onMouseEnter={(e) => {
-            e.currentTarget.style.borderColor = 'var(--color-zinc-500)'
-            e.currentTarget.style.backgroundColor = 'var(--color-brand-glow)'
-          }}
-          onMouseLeave={(e) => {
-            e.currentTarget.style.borderColor = 'var(--color-zinc-700)'
-            e.currentTarget.style.backgroundColor = 'var(--color-zinc-900)'
-          }}
-        >
-          <Star size={14} className="fill-current" style={{ color: 'var(--color-zinc-400)' }} />
-          {starDisplay != null ? (
-            <span>{starDisplay}</span>
-          ) : (
-            <span>GitHub</span>
+        {/* Right side controls */}
+        <div className="flex items-center gap-3">
+          {/* Language switcher — rendered only after mount to avoid hydration mismatch */}
+          {mounted && (
+            <div
+              className="flex items-center text-xs"
+              style={{ fontFamily: 'var(--font-mono)', color: 'var(--color-zinc-400)' }}
+              aria-label="Language switcher"
+            >
+              <button
+                onClick={() => setLanguage('en')}
+                aria-pressed={language === 'en'}
+                aria-label="Switch to English"
+                className="px-1.5 py-1 rounded transition-colors"
+                style={{
+                  color: language === 'en' ? 'var(--color-zinc-100)' : 'var(--color-zinc-500)',
+                  fontWeight: language === 'en' ? 600 : 400,
+                  background: 'none',
+                  border: 'none',
+                  cursor: 'pointer',
+                }}
+              >
+                EN
+              </button>
+              <span style={{ color: 'var(--color-zinc-700)' }} aria-hidden="true">|</span>
+              <button
+                onClick={() => setLanguage('zh')}
+                aria-pressed={language === 'zh'}
+                aria-label="切换为中文"
+                className="px-1.5 py-1 rounded transition-colors"
+                style={{
+                  color: language === 'zh' ? 'var(--color-zinc-100)' : 'var(--color-zinc-500)',
+                  fontWeight: language === 'zh' ? 600 : 400,
+                  background: 'none',
+                  border: 'none',
+                  cursor: 'pointer',
+                }}
+              >
+                中
+              </button>
+            </div>
           )}
-        </a>
+
+          {/* Theme color picker — rendered only after mount */}
+          {mounted && (
+            <div
+              className="flex items-center gap-1.5"
+              role="radiogroup"
+              aria-label="Theme color"
+            >
+              {THEME_ORDER.map((t2) => {
+                const isSelected = theme === t2
+                return (
+                  <button
+                    key={t2}
+                    role="radio"
+                    aria-checked={isSelected}
+                    aria-label={`${THEME_LABELS[t2]} theme`}
+                    onClick={() => setTheme(t2)}
+                    style={{
+                      width: '12px',
+                      height: '12px',
+                      borderRadius: '50%',
+                      backgroundColor: THEME_DOT_COLORS[t2],
+                      border: 'none',
+                      padding: 0,
+                      cursor: 'pointer',
+                      outline: isSelected
+                        ? `2px solid ${THEME_DOT_COLORS[t2]}`
+                        : '2px solid transparent',
+                      outlineOffset: '2px',
+                      transition: 'outline-color 150ms ease',
+                      flexShrink: 0,
+                    }}
+                  />
+                )
+              })}
+            </div>
+          )}
+
+          {/* GitHub button */}
+          <a
+            href="https://github.com/poz110/claude-harness"
+            target="_blank"
+            rel="noopener noreferrer"
+            aria-label={t.nav.githubLabel}
+            className="flex items-center gap-1.5 px-3 py-1.5 text-sm rounded-lg border transition-all"
+            style={{
+              color: 'var(--color-zinc-100)',
+              borderColor: 'var(--color-zinc-700)',
+              backgroundColor: 'var(--color-zinc-900)',
+              transition: 'border-color 150ms ease, background-color 150ms ease',
+              fontFamily: 'var(--font-mono)',
+            }}
+            onMouseEnter={(e) => {
+              e.currentTarget.style.borderColor = 'var(--color-zinc-500)'
+              e.currentTarget.style.backgroundColor = 'var(--color-brand-glow)'
+            }}
+            onMouseLeave={(e) => {
+              e.currentTarget.style.borderColor = 'var(--color-zinc-700)'
+              e.currentTarget.style.backgroundColor = 'var(--color-zinc-900)'
+            }}
+          >
+            <Star size={14} className="fill-current" style={{ color: 'var(--color-zinc-400)' }} />
+            {starDisplay != null ? (
+              <span>{starDisplay}</span>
+            ) : (
+              <span>GitHub</span>
+            )}
+          </a>
+        </div>
       </div>
     </nav>
   )

@@ -8,8 +8,11 @@ import {
 } from '@/components/ui/accordion'
 import { FAQ_ITEMS } from '@/lib/content/faq'
 import { SECTION_IDS } from '@/lib/content/sections'
+import { useLanguage } from '@/lib/i18n/LanguageContext'
 
 export function FAQ() {
+  const { t } = useLanguage()
+
   return (
     <section
       id={SECTION_IDS.faq}
@@ -30,7 +33,7 @@ export function FAQ() {
               color: 'var(--color-zinc-50)',
             }}
           >
-            Frequently Asked Questions
+            {t.faq.heading}
           </h2>
           <p
             style={{
@@ -39,7 +42,7 @@ export function FAQ() {
               color: 'var(--color-zinc-400)',
             }}
           >
-            Everything you need to know about claude-harness.
+            {t.faq.subheading}
           </p>
         </div>
 
@@ -48,36 +51,42 @@ export function FAQ() {
           className="space-y-2"
           aria-label="Frequently asked questions"
         >
-          {FAQ_ITEMS.map((item) => (
-            <AccordionItem
-              key={item.id}
-              value={item.id}
-              className="rounded-lg border px-4"
-              style={{
-                backgroundColor: 'var(--color-zinc-800)',
-                borderColor: 'var(--color-zinc-700)',
-              }}
-            >
-              <AccordionTrigger
-                className="py-4 text-base font-medium"
+          {FAQ_ITEMS.map((item) => {
+            const i18nItem = t.faq.items[item.id]
+            const question = i18nItem?.question ?? item.question
+            const answer = i18nItem?.answer ?? item.answer
+
+            return (
+              <AccordionItem
+                key={item.id}
+                value={item.id}
+                className="rounded-lg border px-4"
                 style={{
-                  color: 'var(--color-zinc-100)',
+                  backgroundColor: 'var(--color-zinc-800)',
+                  borderColor: 'var(--color-zinc-700)',
                 }}
               >
-                {item.question}
-              </AccordionTrigger>
-              <AccordionContent
-                className="pb-4"
-                style={{
-                  color: 'var(--color-zinc-400)',
-                  fontSize: '0.9375rem',
-                  lineHeight: 1.6,
-                }}
-              >
-                {item.answer}
-              </AccordionContent>
-            </AccordionItem>
-          ))}
+                <AccordionTrigger
+                  className="py-4 text-base font-medium"
+                  style={{
+                    color: 'var(--color-zinc-100)',
+                  }}
+                >
+                  {question}
+                </AccordionTrigger>
+                <AccordionContent
+                  className="pb-4"
+                  style={{
+                    color: 'var(--color-zinc-400)',
+                    fontSize: '0.9375rem',
+                    lineHeight: 1.6,
+                  }}
+                >
+                  {answer}
+                </AccordionContent>
+              </AccordionItem>
+            )
+          })}
         </Accordion>
       </div>
     </section>

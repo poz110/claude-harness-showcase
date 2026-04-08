@@ -4,6 +4,7 @@ import { Zap, Users2, Terminal, FileCode2, Puzzle, PackageCheck, type LucideIcon
 import { motion, MotionConfig, useReducedMotion } from 'framer-motion'
 import { FEATURES, type Feature } from '@/lib/content/features'
 import { SECTION_IDS } from '@/lib/content/sections'
+import { useLanguage } from '@/lib/i18n/LanguageContext'
 
 const ICON_MAP: Record<string, LucideIcon> = {
   Zap,
@@ -17,6 +18,11 @@ const ICON_MAP: Record<string, LucideIcon> = {
 function FeatureCard({ feature, index }: { feature: Feature; index: number }) {
   const Icon = ICON_MAP[feature.iconName] ?? Zap
   const shouldReduceMotion = useReducedMotion()
+  const { t } = useLanguage()
+
+  const i18nItem = t.features.items[feature.id]
+  const title = i18nItem?.title ?? feature.title
+  const description = i18nItem?.description ?? feature.description
 
   return (
     <motion.div
@@ -67,18 +73,20 @@ function FeatureCard({ feature, index }: { feature: Feature; index: number }) {
         className="font-semibold mb-2"
         style={{ fontSize: '1.25rem', lineHeight: 1.3, color: 'var(--color-zinc-50)' }}
       >
-        {feature.title}
+        {title}
       </h3>
 
       {/* Description */}
       <p style={{ fontSize: '0.9375rem', lineHeight: 1.6, color: 'var(--color-zinc-400)' }}>
-        {feature.description}
+        {description}
       </p>
     </motion.div>
   )
 }
 
 export function FeaturesGrid() {
+  const { t } = useLanguage()
+
   return (
     <MotionConfig reducedMotion="user">
       <section
@@ -100,7 +108,7 @@ export function FeaturesGrid() {
                 color: 'var(--color-zinc-50)',
               }}
             >
-              Core Features
+              {t.features.heading}
             </h2>
             <p
               className="max-w-2xl mx-auto"
@@ -110,7 +118,7 @@ export function FeaturesGrid() {
                 color: 'var(--color-zinc-400)',
               }}
             >
-              Everything you need to automate your development workflow — from requirements to deployed code.
+              {t.features.subheading}
             </p>
           </div>
 

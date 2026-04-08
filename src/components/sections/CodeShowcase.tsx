@@ -4,11 +4,15 @@ import { useState } from 'react'
 import { CopyButton } from '@/components/shared/CopyButton'
 import { CODE_EXAMPLES } from '@/lib/content/code-examples'
 import { SECTION_IDS } from '@/lib/content/sections'
+import { useLanguage } from '@/lib/i18n/LanguageContext'
 
 export function CodeShowcase() {
   const [activeId, setActiveId] = useState(CODE_EXAMPLES[0].id)
+  const { t } = useLanguage()
 
   const activeExample = CODE_EXAMPLES.find((e) => e.id === activeId) ?? CODE_EXAMPLES[0]
+  const activeI18n = t.codeShowcase.items[activeExample.id]
+  const activeDescription = activeI18n?.description ?? activeExample.description
 
   return (
     <section
@@ -30,7 +34,7 @@ export function CodeShowcase() {
               color: 'var(--color-zinc-50)',
             }}
           >
-            See It In Action
+            {t.codeShowcase.heading}
           </h2>
           <p
             style={{
@@ -39,7 +43,7 @@ export function CodeShowcase() {
               color: 'var(--color-zinc-400)',
             }}
           >
-            Real output from claude-harness workflows.
+            {t.codeShowcase.subheading}
           </p>
         </div>
 
@@ -52,6 +56,8 @@ export function CodeShowcase() {
         >
           {CODE_EXAMPLES.map((example) => {
             const isActive = example.id === activeId
+            const i18nItem = t.codeShowcase.items[example.id]
+            const label = i18nItem?.label ?? example.label
             return (
               <button
                 key={example.id}
@@ -81,19 +87,19 @@ export function CodeShowcase() {
                   }
                 }}
               >
-                {example.label}
+                {label}
               </button>
             )
           })}
         </div>
 
         {/* Description */}
-        {activeExample.description && (
+        {activeDescription && (
           <p
             className="mb-4 text-sm"
             style={{ color: 'var(--color-zinc-400)', fontFamily: 'var(--font-mono)' }}
           >
-            # {activeExample.description}
+            # {activeDescription}
           </p>
         )}
 

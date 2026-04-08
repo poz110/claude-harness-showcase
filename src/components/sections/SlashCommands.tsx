@@ -1,7 +1,12 @@
+'use client'
+
 import { SLASH_COMMANDS, type SlashCommand } from '@/lib/content/commands'
 import { SECTION_IDS } from '@/lib/content/sections'
+import { useLanguage } from '@/lib/i18n/LanguageContext'
 
 export function SlashCommands() {
+  const { t } = useLanguage()
+
   return (
     <section
       id={SECTION_IDS.slashCommands}
@@ -22,7 +27,7 @@ export function SlashCommands() {
               color: 'var(--color-zinc-50)',
             }}
           >
-            Slash Commands
+            {t.slashCommands.heading}
           </h2>
           <p
             style={{
@@ -31,19 +36,19 @@ export function SlashCommands() {
               color: 'var(--color-zinc-400)',
             }}
           >
-            Three commands. Every scenario.
+            {t.slashCommands.subheading}
           </p>
         </div>
 
         {/* Commands layout: first card full-width on desktop, remaining 2 side-by-side */}
         <div className="space-y-6">
           {/* First command — featured */}
-          <CommandCard command={SLASH_COMMANDS[0]} />
+          <CommandCard command={SLASH_COMMANDS[0]} useCase={t.slashCommands.useCase} i18nItems={t.slashCommands.items} />
 
           {/* Remaining commands — side by side on desktop */}
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
             {SLASH_COMMANDS.slice(1).map((cmd) => (
-              <CommandCard key={cmd.id} command={cmd} />
+              <CommandCard key={cmd.id} command={cmd} useCase={t.slashCommands.useCase} i18nItems={t.slashCommands.items} />
             ))}
           </div>
         </div>
@@ -52,7 +57,18 @@ export function SlashCommands() {
   )
 }
 
-function CommandCard({ command }: { command: SlashCommand }) {
+interface CommandCardProps {
+  command: SlashCommand
+  useCase: string
+  i18nItems: Record<string, { tagline: string; scenario: string; badge?: string }>
+}
+
+function CommandCard({ command, useCase, i18nItems }: CommandCardProps) {
+  const i18n = i18nItems[command.id]
+  const tagline = i18n?.tagline ?? command.tagline
+  const scenario = i18n?.scenario ?? command.scenario
+  const badge = i18n?.badge ?? command.badge
+
   return (
     <div
       className="slash-cmd-card rounded-xl p-6 border"
@@ -80,10 +96,10 @@ function CommandCard({ command }: { command: SlashCommand }) {
             {command.name}
           </h3>
           <p style={{ fontSize: '0.9375rem', color: 'var(--color-zinc-300)', lineHeight: 1.5 }}>
-            {command.tagline}
+            {tagline}
           </p>
         </div>
-        {command.badge && (
+        {badge && (
           <span
             className="shrink-0 ml-4 px-2.5 py-0.5 rounded-full text-xs font-medium"
             style={{
@@ -92,7 +108,7 @@ function CommandCard({ command }: { command: SlashCommand }) {
               fontFamily: 'var(--font-mono)',
             }}
           >
-            {command.badge}
+            {badge}
           </span>
         )}
       </div>
@@ -102,7 +118,7 @@ function CommandCard({ command }: { command: SlashCommand }) {
         className="mb-4 text-xs"
         style={{ color: 'var(--color-zinc-500)', fontFamily: 'var(--font-mono)' }}
       >
-        Use case: {command.scenario}
+        {useCase}: {scenario}
       </p>
 
       {/* Divider */}
