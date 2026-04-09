@@ -17,31 +17,33 @@ $ /autopilot "Build a task management SaaS with team collaboration"
 
 [claude-harness] Starting autopilot workflow...
 
-> Phase 1: Requirements Analysis
-  [PM Agent] Parsing PRD...                              ✓
-  [PM Agent] Writing user stories...                     ✓
-  [PM Agent] Creating acceptance criteria...             ✓
+> IDEA → PRD_DRAFT: Requirements Analysis
+  [Product Manager] Running office-hours interrogation...  ✓
+  [Product Manager] Generating PRD (MoSCoW + Gherkin)...   ✓
 
-> Phase 2: Architecture
-  [Architect Agent] Analyzing tech stack...              ✓
-  [Architect Agent] Generating ADR...                    ✓
-  [Architect Agent] Designing data models...             ✓
+> PRD_REVIEW → ARCH_REVIEW: Architecture
+  [Software Architect] Generating ADR + ASCII diagrams...  ✓
+  [Software Architect] Writing security baseline...        ✓
 
-> Phase 3: Design
-  [Designer Agent] Building design tokens...             ✓
-  [Designer Agent] Creating component specs...           ✓
+> CEO_REVIEW → DESIGN_PHASE: Design
+  [UX Designer] Building design system (DESIGN.md)...      ✓
+  [UX Designer] Creating design spec (80-item audit)...    ✓
 
-> Phase 4: Implementation
-  [FE Engineer] Implementing Next.js components...       ✓
-  [BE Engineer] Setting up Hono API routes...            ✓
-  [BE Engineer] Writing database migrations...           ✓
+> DESIGN_REVIEW → IMPLEMENTATION: Full-Stack
+  [Fullstack Engineer] Writing API spec...                 ✓
+  [Fullstack Engineer] Implementing backend (Hono)...      ✓
+  [Fullstack Engineer] Implementing frontend (Next.js)...  ✓
 
-> Phase 5: Quality Assurance
-  [QA Agent] Running E2E tests...                        ✓
-  [QA Agent] Performance audit: Lighthouse 94/100        ✓
+> CODE_REVIEW → QA_PHASE → SECURITY_REVIEW
+  [Code Reviewer] Two-phase review (spec + quality)...     ✓
+  [QA Engineer] Playwright E2E tests...                    ✓
+  [Security Auditor] OWASP Top 10 scan...                  ✓
 
-[claude-harness] Workflow complete in 8m 42s
-  Build: SUCCESS | Tests: 47 passed | Deploy: Ready`,
+> DEPLOY_PREP_SETUP → DONE
+  [DevOps Engineer] CI/CD + Dockerfile...                  ✓
+
+[claude-harness] Workflow complete — 14 states traversed
+  Build: SUCCESS | Tests: PASSED | Deploy: Ready`,
   },
   {
     id: 'feature',
@@ -52,28 +54,25 @@ $ /autopilot "Build a task management SaaS with team collaboration"
 $ /feature "Add real-time notifications with WebSocket"
 
 [claude-harness] Starting feature workflow...
+  Skipping: ARCH_REVIEW, CEO_REVIEW, DESIGN_PHASE, DESIGN_REVIEW
 
-> Analyzing existing codebase...                         ✓
-  Found: Next.js 14, TypeScript, Drizzle ORM
+> PRD_DRAFT: Requirements
+  [Product Manager] Generating feature PRD...              ✓
 
-> [Architect Agent] Planning integration...              ✓
-  Strategy: WebSocket server + client hooks
-  Files affected: 12 components, 3 API routes
+> IMPLEMENTATION: Full-Stack
+  [Fullstack Engineer] Writing API spec...                 ✓
+  [Fullstack Engineer] Building notification components..  ✓
+  [Fullstack Engineer] Setting up WebSocket routes...      ✓
 
-> [FE Engineer] Building notification components...      ✓
-  - NotificationBell.tsx
-  - NotificationDropdown.tsx
-  - useNotifications.ts (React hook)
+> CODE_REVIEW → QA_PHASE
+  [Code Reviewer] Spec compliance + code quality...        ✓
+  [QA Engineer] Playwright E2E: 6 scenarios passed         ✓
 
-> [BE Engineer] Setting up WebSocket routes...           ✓
-  - /api/ws/notifications
-  - Drizzle schema: notifications table
-  - Migration: 0042_add_notifications.sql
+> SECURITY_REVIEW → DEPLOY_PREP
+  [Security Auditor] OWASP scan...                         ✓
+  [DevOps Engineer] Updating deploy config...              ✓
 
-> [QA Agent] Running feature tests...                    ✓
-  Playwright E2E: 6 scenarios passed
-
-[claude-harness] Feature complete in 3m 18s`,
+[claude-harness] Feature complete — 10 states traversed`,
   },
   {
     id: 'hotfix',
@@ -84,29 +83,26 @@ $ /feature "Add real-time notifications with WebSocket"
 $ /hotfix "Payment timeout causing failed checkouts"
 
 [claude-harness] Starting hotfix workflow...
+  Mode: Analyze → Fix → CODE_REVIEW (skips all planning/design)
 
 > Analyzing error report...                              ✓
   Error: Promise timeout after 5000ms in /api/checkout
   Frequency: 23% of checkout attempts
   Root cause: Stripe API latency spike under load
 
-> [Engineer Agent] Preparing targeted fix...
+> [General Assistant] Preparing targeted fix...
   Strategy: Increase timeout + add retry with backoff
 
   Modified: src/app/api/checkout/route.ts
-  - timeout: 5000 → 30000
+  + timeout: 5000 → 30000
   + retry: exponential backoff (3 attempts)
   + circuit breaker: open after 5 failures
 
-> [QA Agent] Running regression tests...                 ✓
-  Payment flow: 12 scenarios passed
-  Load test: 100 concurrent users — 0 timeouts
+> [Code Reviewer] Reviewing fix...                       ✓
+  Spec compliance: N/A (hotfix)
+  Code quality: PASS
 
-> Preparing rollout plan...                              ✓
-  Deployment: Zero-downtime (Vercel)
-  Rollback: Previous deploy preserved
-
-[claude-harness] Hotfix ready in 1m 52s
-  Risk level: LOW | Tests: PASSED | Deploy: Ready`,
+[claude-harness] Hotfix ready
+  Risk level: LOW | Review: PASSED | Deploy: Ready`,
   },
 ]

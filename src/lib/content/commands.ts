@@ -17,12 +17,12 @@ export const SLASH_COMMANDS: SlashCommand[] = [
     badge: 'Full Project',
     exampleCode: `$ /autopilot "Build a SaaS dashboard with auth"
 
-> Analyzing PRD...                    ████████████████░░░░ 80%
-> [PM] Writing user stories...                            ✓
-> [Architect] Generating ADR...                           ✓
-> [Designer] Building design system...                    ✓
-> [FE Engineer] Implementing components...                ⟳
-> [BE Engineer] Setting up API routes...                  ⟳`,
+> [Product Manager] Generating PRD...                     ✓
+> [Software Architect] Generating ADR...                  ✓
+> [UX Designer] Building design system...                 ✓
+> [Fullstack Engineer] Implementing FE + BE...            ⟳
+> [Code Reviewer] Reviewing...                            ·
+> [QA Engineer] Testing...                                ·`,
     lang: 'bash',
   },
   {
@@ -32,9 +32,9 @@ export const SLASH_COMMANDS: SlashCommand[] = [
     scenario: 'Incremental feature additions to existing projects',
     exampleCode: `$ /feature "Add user authentication"
 
-> Analyzing existing codebase...                         ✓
-> [Architect] Planning auth flow...                       ✓
-> [FE Engineer] Building login UI...                      ⟳`,
+> Skipping: ARCH_REVIEW, CEO_REVIEW, DESIGN_PHASE
+> [Product Manager] Generating feature PRD...             ✓
+> [Fullstack Engineer] Implementing auth flow...          ⟳`,
     lang: 'bash',
   },
   {
@@ -44,9 +44,9 @@ export const SLASH_COMMANDS: SlashCommand[] = [
     scenario: 'Production emergency fixes',
     exampleCode: `$ /hotfix "Fix payment timeout on checkout"
 
-> Identifying root cause...                              ✓
-> [Engineer] Applying targeted fix...                     ✓
-> [QA] Running regression tests...                        ⟳`,
+> Analyzing root cause...                                ✓
+> [General Assistant] Applying targeted fix...            ✓
+> [Code Reviewer] Reviewing fix...                        ⟳`,
     lang: 'bash',
   },
 ]

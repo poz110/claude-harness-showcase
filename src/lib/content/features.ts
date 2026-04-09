@@ -16,7 +16,7 @@ export const FEATURES: Feature[] = [
     id: 'multi-agent',
     iconName: 'Users2',
     title: 'Multi-Agent Orchestration',
-    description: 'PM, Architect, Designer, FE, BE, QA agents work in concert — each expert in their role.',
+    description: '12 specialized agents — PM, Architect, Designer, Fullstack Engineer, Reviewer, QA, Security, DevOps — each expert in their role.',
   },
   {
     id: 'slash-commands',
@@ -34,7 +34,7 @@ export const FEATURES: Feature[] = [
     id: 'extensible',
     iconName: 'Puzzle',
     title: 'Extensible Plugin System',
-    description: 'Built on Claude Code\'s MCP protocol. Add custom agents, extend workflows, own your pipeline.',
+    description: 'Add custom skills, extend workflows, own your pipeline. 21 built-in skills covering the full development lifecycle.',
   },
   {
     id: 'zero-config',

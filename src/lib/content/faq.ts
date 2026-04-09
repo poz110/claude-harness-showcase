@@ -13,7 +13,7 @@ export const FAQ_ITEMS: FAQItem[] = [
   {
     id: 'vs-cursor',
     question: 'How is this different from Cursor or GitHub Copilot?',
-    answer: 'Cursor and Copilot assist with single-turn code completions — they help you write individual functions or files. claude-harness operates at the project level: it coordinates specialized agents (PM, Architect, Designer, Engineer, QA) to deliver complete, tested features across your entire stack. It\'s the difference between a coding assistant and an AI development team.',
+    answer: 'Cursor and Copilot assist with single-turn code completions — they help you write individual functions or files. claude-harness operates at the project level: it coordinates 12 specialized agents (PM, Architect, Designer, Fullstack Engineer, Reviewer, QA, Security Auditor, DevOps) through a 14-state pipeline to deliver complete, tested features across your entire stack. It\'s the difference between a coding assistant and an AI development team.',
   },
   {
     id: 'existing-project',
@@ -38,6 +38,6 @@ export const FAQ_ITEMS: FAQItem[] = [
   {
     id: 'customize',
     question: 'Can I customize the workflow?',
-    answer: 'Yes. The Skill system lets you add custom workflow nodes, replace existing agents with your own implementations, or create entirely new commands. Everything is TypeScript — readable, extensible, and version-controlled.',
+    answer: 'Yes. The Skill system (21 built-in skills) lets you add custom workflow nodes, replace existing agents with your own implementations, or create entirely new commands. Skills are defined as Markdown files, and the core workflow engine is JavaScript — readable, extensible, and version-controlled.',
   },
 ]

@@ -17,11 +17,11 @@ export const GETTING_STARTED_STEPS: GettingStartedStep[] = [
     lang: 'bash',
   },
   {
-    id: 'clone-plugin',
+    id: 'install-plugin',
     stepNumber: 2,
     title: 'Install claude-harness Plugin',
-    description: 'Clone the plugin into Claude Code\'s plugin directory.',
-    code: 'git clone https://github.com/poz110/claude-harness \\\n  ~/.claude/plugins/marketplaces/claude-harness',
+    description: 'Install via the plugin marketplace with two commands.',
+    code: 'claude plugin marketplace add poz110/claude-harness\nclaude plugin install claude-harness',
     lang: 'bash',
   },
   {

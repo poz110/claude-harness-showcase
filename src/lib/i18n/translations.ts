@@ -93,7 +93,7 @@ export const translations: Record<Language, Translations> = {
         'multi-agent': {
           title: 'Multi-Agent Orchestration',
           description:
-            'PM, Architect, Designer, FE, BE, QA agents work in concert — each expert in their role.',
+            '12 specialized agents — PM, Architect, Designer, Fullstack Engineer, Reviewer, QA, Security, DevOps — each expert in their role.',
         },
         'slash-commands': {
           title: 'Slash Commands',
@@ -108,7 +108,7 @@ export const translations: Record<Language, Translations> = {
         extensible: {
           title: 'Extensible Plugin System',
           description:
-            "Built on Claude Code's MCP protocol. Add custom agents, extend workflows, own your pipeline.",
+            'Add custom skills, extend workflows, own your pipeline. 21 built-in skills covering the full development lifecycle.',
         },
         'zero-config': {
           title: 'Zero Config Start',
@@ -119,25 +119,20 @@ export const translations: Record<Language, Translations> = {
     },
     howItWorks: {
       heading: 'How It Works',
-      subheading: 'Four steps from zero to a running AI-powered development workflow.',
+      subheading: 'Three steps from zero to a running AI-powered development workflow.',
       steps: {
         install: {
           title: 'Install',
           description: 'One line to install Claude Code globally.',
         },
-        clone: {
+        'install-plugin': {
           title: 'Install Plugin',
-          description: 'Clone the claude-harness plugin into Claude Code.',
-        },
-        prd: {
-          title: 'Write Your PRD',
-          description:
-            'Use natural language to describe requirements. harness understands structure.',
+          description: 'Install the claude-harness plugin from the marketplace.',
         },
         autopilot: {
           title: 'Run Autopilot',
           description:
-            'Multi-Agent collaboration takes your requirements to code automatically.',
+            'Describe your requirements — the PM agent generates the PRD automatically.',
         },
       },
     },
@@ -149,9 +144,9 @@ export const translations: Record<Language, Translations> = {
           title: 'Install Claude Code',
           description: 'Install the Claude Code CLI globally. Requires Node.js 18+.',
         },
-        'clone-plugin': {
+        'install-plugin': {
           title: 'Install claude-harness Plugin',
-          description: "Clone the plugin into Claude Code's plugin directory.",
+          description: 'Install via the plugin marketplace with two commands.',
         },
         run: {
           title: 'Start Autopilot',
@@ -212,7 +207,7 @@ export const translations: Record<Language, Translations> = {
         'vs-cursor': {
           question: 'How is this different from Cursor or GitHub Copilot?',
           answer:
-            "Cursor and Copilot assist with single-turn code completions — they help you write individual functions or files. claude-harness operates at the project level: it coordinates specialized agents (PM, Architect, Designer, Engineer, QA) to deliver complete, tested features across your entire stack. It's the difference between a coding assistant and an AI development team.",
+            "Cursor and Copilot assist with single-turn code completions — they help you write individual functions or files. claude-harness operates at the project level: it coordinates 12 specialized agents (PM, Architect, Designer, Fullstack Engineer, Reviewer, QA, Security Auditor, DevOps) through a 14-state pipeline to deliver complete, tested features across your entire stack. It's the difference between a coding assistant and an AI development team.",
         },
         'existing-project': {
           question: 'Can I use claude-harness on an existing project?',
@@ -237,7 +232,7 @@ export const translations: Record<Language, Translations> = {
         customize: {
           question: 'Can I customize the workflow?',
           answer:
-            'Yes. The Skill system lets you add custom workflow nodes, replace existing agents with your own implementations, or create entirely new commands. Everything is TypeScript — readable, extensible, and version-controlled.',
+            'Yes. The Skill system (21 built-in skills) lets you add custom workflow nodes, replace existing agents with your own implementations, or create entirely new commands. Skills are defined as Markdown files, and the core workflow engine is JavaScript — readable, extensible, and version-controlled.',
         },
       },
     },
@@ -278,7 +273,7 @@ export const translations: Record<Language, Translations> = {
         },
         'multi-agent': {
           title: '多 Agent 编排',
-          description: 'PM、架构师、设计师、前端、后端、QA 协同工作，各司其职。',
+          description: '12 个专业 Agent — PM、架构师、设计师、全栈工程师、审查员、QA、安全审计、DevOps — 各司其职。',
         },
         'slash-commands': {
           title: 'Slash 命令',
@@ -290,7 +285,7 @@ export const translations: Record<Language, Translations> = {
         },
         extensible: {
           title: '可扩展插件系统',
-          description: '基于 Claude Code 的 MCP 协议构建。添加自定义 Agent，扩展工作流，掌控你的流水线。',
+          description: '添加自定义技能，扩展工作流，掌控你的流水线。内置 21 个技能，覆盖完整开发生命周期。',
         },
         'zero-config': {
           title: '零配置启动',
@@ -300,23 +295,19 @@ export const translations: Record<Language, Translations> = {
     },
     howItWorks: {
       heading: '工作原理',
-      subheading: '四个步骤，从零搭建 AI 驱动的开发工作流。',
+      subheading: '三个步骤，从零搭建 AI 驱动的开发工作流。',
       steps: {
         install: {
           title: '安装',
           description: '一行命令全局安装 Claude Code。',
         },
-        clone: {
+        'install-plugin': {
           title: '安装插件',
-          description: '将 claude-harness 插件克隆到 Claude Code 中。',
-        },
-        prd: {
-          title: '编写需求文档',
-          description: '用自然语言描述需求，harness 能理解文档结构。',
+          description: '从插件市场安装 claude-harness 插件。',
         },
         autopilot: {
           title: '运行 Autopilot',
-          description: '多 Agent 协作，自动将你的需求转化为代码。',
+          description: '描述你的需求 — PM Agent 自动生成需求文档。',
         },
       },
     },
@@ -328,9 +319,9 @@ export const translations: Record<Language, Translations> = {
           title: '安装 Claude Code',
           description: '全局安装 Claude Code CLI，需要 Node.js 18+。',
         },
-        'clone-plugin': {
+        'install-plugin': {
           title: '安装 claude-harness 插件',
-          description: '将插件克隆到 Claude Code 的插件目录。',
+          description: '通过插件市场两条命令完成安装。',
         },
         run: {
           title: '启动 Autopilot',
@@ -390,7 +381,7 @@ export const translations: Record<Language, Translations> = {
         'vs-cursor': {
           question: '与 Cursor 或 GitHub Copilot 有何不同？',
           answer:
-            'Cursor 和 Copilot 专注于单轮代码补全，帮你编写单个函数或文件。claude-harness 在项目层面运作：协调专业 Agent（PM、架构师、设计师、工程师、QA），跨整个技术栈交付完整的、经过测试的功能。这是编码助手与 AI 开发团队的本质区别。',
+            'Cursor 和 Copilot 专注于单轮代码补全，帮你编写单个函数或文件。claude-harness 在项目层面运作：通过 14 步状态机流水线协调 12 个专业 Agent（PM、架构师、设计师、全栈工程师、审查员、QA、安全审计、DevOps），跨整个技术栈交付完整的、经过测试的功能。这是编码助手与 AI 开发团队的本质区别。',
         },
         'existing-project': {
           question: '可以在现有项目上使用 claude-harness 吗？',
@@ -415,7 +406,7 @@ export const translations: Record<Language, Translations> = {
         customize: {
           question: '可以自定义工作流吗？',
           answer:
-            '可以。Skill 系统允许你添加自定义工作流节点、用自己的实现替换现有 Agent，或创建全新的命令。一切都是 TypeScript —— 可读、可扩展、版本可控。',
+            '可以。Skill 系统（内置 21 个技能）允许你添加自定义工作流节点、用自己的实现替换现有 Agent，或创建全新的命令。技能以 Markdown 文件定义，核心工作流引擎基于 JavaScript —— 可读、可扩展、版本可控。',
         },
       },
     },
